@@ -1,0 +1,434 @@
+    .add-note-form {
+    margin-top: 50px;
+    }
+    .form-container {
+      max-width: 400px;
+      margin: 0 auto;
+      padding: 20px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      background-color: #f9f9f9;
+    }
+    
+    .form-container h2 {
+      text-align: center;
+    }
+    
+    .form-container label {
+      display: block;
+      margin-bottom: 5px;
+    }
+    
+    .form-container input[type="text"],.form-container select,
+    .form-container textarea {
+      width: 100%;
+      padding: 8px;
+      background-color: #f9f9f9;
+      margin-bottom: 15px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      box-sizing: border-box;
+    }
+    
+    .form-container button {
+      background-color: #4caf50;
+      color: white;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      width: 100%;
+      margin-top:5px;
+    }
+    
+    .form-container button:hover {
+      background-color: #45a049;
+    }
+    
+    /* Styling for file input */
+    .form-container input[type="file"] {
+      margin-top: 5px;
+    }
+    
+    /* Optional: Styling for error messages */
+    .error-message {
+      color: red;
+      margin-top: 5px;
+    }
+
+    .error-message{
+      color: red;
+      font-size: 14px;
+      margin-top: -6px;
+      margin-bottom: 0;
+    }
+
+    .note{
+      border-style: solid;
+      border-width: 1px;
+      border-color:#ccc;
+      border-radius: 15px;
+      margin-bottom: 15px;
+      width:85%;
+      margin-left:auto;
+      margin-right: auto;
+    }
+    /**/
+    .note-rating i {
+      cursor: pointer;
+    }
+
+    .star-filled {
+      color: gold; /* Change to the color you want the filled star to be */
+    }
+
+    .user-info{
+      margin-top:10px;
+      margin-left:16px;
+    }
+
+    .user-info .fa-solid.fa-user {
+      margin-top:22px;
+      vertical-align: top;
+    }
+
+    .user-info .fa-solid fa-user{
+      margin-bottom:2px;
+    }
+    .user-info p{
+    display: inline-block;
+    }
+
+    .user-info i{ 
+    margin-right:3px;
+    }
+
+    .user-info .user-name{
+      
+      font-size:20px;
+      margin-right:3px;
+    }
+  
+  .note-actions{
+      margin-right:16px;
+  }
+ .note-actions i{
+      margin-left:8px;
+  }
+
+  .note-published-at{
+      color:#ccc;
+      font-size:12px;
+      font-weight: bold;
+  }
+  .note-container{
+      display: flex;
+      justify-content: space-between; /* Distributes child elements evenly along the main axis */
+      align-items: center;
+      margin-top:-7px;
+      
+      
+  }
+  .note{
+      height:400px;
+      width:520px;
+      
+  }
+  
+  .note-details{
+     
+      margin-bottom:10px;
+      margin-left:30px;
+  }
+  .note-title{
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 500;
+      font-size: 20px;
+      
+  }
+  .note-details .note-title{
+      margin-top:-10px;
+  }
+
+   .note-details .note-topic-id{
+    margin-top: -22px;
+    margin-bottom: 16px;
+   }
+
+  hr{
+      width:400px;
+      background-color:#DCDCDC;
+      height:1px;
+      border:none;
+  }
+  .note:nth-child(3n+1) {
+      background-color: #91aaff;
+  }
+  .note:nth-child(3n+2) {
+      background-color: #ff80c5;
+  }
+  .note:nth-child(3n+3) {
+      background-color: #7afbff;
+  }
+  #notes-container {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      
+  }
+  .add-note-btn {
+      display: flex; /* Use flexbox */
+      align-items: center; /* Center vertically */
+      justify-content: center; /* Center horizontally */
+      width: 40px;
+      height: 40px;
+      background-color: #007bff;
+      color: white;
+      border: none;
+      border-radius: 50%;
+      font-size: 24px;
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      cursor: pointer;
+      text-decoration: none;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  .more-details{
+      display:flex;
+      justify-content: space-between;
+      margin-left: 16px;
+      margin-right: 16px;
+      margin-bottom: 12px;
+
+  }
+  .more-details i{
+      font-size: 25px;
+  }
+  
+  .more-details .see-more-button {
+
+      cursor:pointer;
+      color: black; /* Change text color to black */
+      border: 2px solid black; /* Add border */
+      border-radius: 20px; /* Add border radius */
+      display: inline-flex; /* Use flexbox to ensure inline alignment */
+      align-items: center; /* Align items vertically */
+      margin-bottom:8px;
+  }
+
+  .see-more-button i {
+      margin-left: 5px; /* Add some space between text and arrow */
+  }
+  header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0 20px;
+      background-color: #fff;
+      border-bottom: 3px solid;
+      border-image: linear-gradient(to right, #91aaff, #ff80c5, #7afbff);
+      border-image-slice: 1;
+      position: fixed;
+      top: 0;
+      width: 100%;
+      z-index: 1000;
+      margin-left: 0px;
+      height:80px;
+  }
+ 
+  
+
+  .logo {
+      font-size: 20px;
+      font-weight: bold;
+  }
+
+  .icons {
+      display: flex;
+  }
+
+  .user-icon,
+  .notification-icon {
+      margin-left: 20px;
+      cursor: pointer;
+  }
+
+  .content {
+      padding-top: 70px; /* Height of the header + 10px */
+      height: 2000px; /* Just for demonstration */
+  }
+  
+  .image-container {
+  width: 490px; /* Adjust width of the image container */
+  height: 240px; /* Use full height of the note details */
+  flex-shrink: 0; /* Prevent the image container from shrinking */
+  display: flex; /* Use flexbox */
+  justify-content: center; /* Center the image horizontally */
+  align-items: center; /* Center the image vertically */
+  margin-left: auto;
+  margin-right: auto; /* Auto right margin */
+  margin-top:-2px;
+  }
+
+  .image-container img {
+  width: 100%; /* Make the image take the whole width of the container */
+  height: auto; /* Maintain aspect ratio */
+  max-width: 100%; /* Ensure the image does not exceed the container's width */
+  max-height: 100%; /* Ensure the image does not exceed the container's height */
+  border: none; /* Remove border from the image */
+  /* border-radius: 15px; */
+  margin-bottom: 12px;
+  }
+  .fa-regular.fa-comment-dots{
+    cursor:pointer;
+  }
+  .note-link {
+  text-decoration: none; /* Remove underline */
+  color: inherit; /* Inherit text color */
+  /* Add more styles as needed */
+  }
+
+  /*  NOTE DETAILED CSS*/
+  .note-detailed{
+    height:700px;
+    width:1200px;
+    margin-left:auto;
+    margin-right:auto;
+    border-style: solid;
+    border-width: 1px;
+    border-color:#ccc;
+    border-radius: 15px;
+    }
+   .note-detailed hr{
+    width:900px;
+    background-color:#DCDCDC;
+    height:1px;
+    border:none;
+    }
+    .note-detailed .image-container {
+    height:400px;
+    width:1100px;
+    }
+    .note-detailed .image-container .note-rating{
+    
+    }
+    .note-detailed .note-details .note-title{
+    margin-top:4px;
+    }
+    .note-detailed .note-details .note-details-1 .note-topic-id{
+    margin-top:8px;
+    margin-left:25px;
+    }
+    .note-detailed .note-details .note-details-1 .note-discipline{
+    margin-top:8px;
+    margin-left:25px;
+    }
+    .note-detailed .another-details{
+    margin-left:50px;
+    }
+
+    .note-detailed .note-container .user-info .note-published-at{  
+    color:#ccc;
+    font-size:12px;
+    font-weight: bold;
+    margin-top:-20px;
+    margin-left:20px;
+    }
+
+    .comment-section {
+        margin-top: 20px;
+        overflow-y: auto; /* Add vertical scrollbar */
+        background-color: #f0f0f0; /* Change background color */
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Add shadow for depth */
+        
+    }
+    
+    .comment {
+        display: flex;
+        align-items: center;
+        margin-bottom: 10px;
+        
+        
+    }
+    
+    .displayed-comment {
+    background-color: #e9f7ef; /* Change background color for displayed comments */
+    border-left: 5px solid #27ae60; /* Add a left border to highlight displayed comments */
+    padding-left: 10px; /* Add padding to the left of displayed comments */
+    }
+    /* Add margin between comment icon and text */
+.displayed-comment .fa-user {
+    margin-right: 5px; /* Adjust margin to your preference */
+    margin-bottom:3px;
+}
+
+    
+    .comment-user {
+        margin-right: 10px;
+    }
+    
+    .comment-user i {
+        color: #888;
+    }
+    
+    .comment input[type="text"] {
+        padding: 8px;
+        border: 1px solid #ccc;
+        border-radius: 15px;
+        flex: 1;
+        width:1070px;
+    }
+    
+    .comment-submit {
+        display: none; /* Initially hide the submit button */
+        padding: 8px 16px;
+        background-color: #007bff;
+        color: #fff;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        transition: background-color 0.3s;
+    }
+    
+    .comment-submit:hover {
+        background-color: #0056b3;
+    }
+    /*User details*/
+    .user-info-container{
+      height:700px;
+      width:1000px;
+      margin-left:auto;
+      margin-right:auto;
+      border-style: solid;
+      border-width: 1px;
+      border-color:#ccc;
+     border-radius: 15px;
+
+    }
+    
+    /**/
+    .search-container {
+    position: relative;
+    width: 50%;
+    margin-top: 130px;
+    margin-left: auto;
+    margin-right: auto;
+    }
+      
+    .search-container input[type="text"] {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+    }
+      
+    .search-container i {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #ccc;
+    cursor: pointer;
+    }
