@@ -13,24 +13,21 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('utilisateurs', function (Blueprint $table) {
-            // $table->id();
-            // $table->string('Nom');
-            // $table->string('Prenom');
-            // $table->string('email', 50)->unique(); // Limitez la longueur de l'email à 255 caractères
-            // $table->string('Mot_de_passe');
-            // $table->string('Photo_de_profil')->nullable();
-            // $table->timestamps();
+        Schema::create('users', function (Blueprint $table) {
             $table->id();
             $table->string('first_name');
             $table->string('family_name');
             $table->string('email', 50)->unique();
             $table->string('password');
+            $table->rememberToken();
             $table->string('university')->nullable(); // New column for university
             $table->string('study_field')->nullable(); // New column for study field
             $table->string('study_level')->nullable(); // New column for study level
-            $table->string('coordinates')->nullable(); // New column for coordinates
+            //$table->string('coordinates')->nullable(); // New column for coordinates
             $table->string('photo_de_profil')->nullable();
+            $table->string('phone')->nullable();
+            //$table->string('pays')->nullable();
+            //$table->string('city')->nullable();
             $table->timestamps();
         });
     }
@@ -42,6 +39,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('utilisateurs');
+        Schema::dropIfExists('users');
     }
 };

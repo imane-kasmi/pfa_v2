@@ -524,8 +524,6 @@
             citySelect.appendChild(option);
         });
     }
-
-
         </script>
     </body>
 </html>

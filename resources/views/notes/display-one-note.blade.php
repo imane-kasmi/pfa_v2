@@ -170,8 +170,8 @@
             <div class="note-details-1">
                 <p class="note-topic-name">Topic:{{ $note->topic->name }} </p>
                 @if($note->topic)
-    @if($note->topic->discipline)
-        <p class="note-discipline">Discipline: {{ $note->topic->discipline->name }}</p>
+    @if($note->topic->discipline->discipline)
+        <p class="note-discipline">Discipline: {{ $note->topic->discipline->discipline }}</p>
     @endif
 @endif
 
