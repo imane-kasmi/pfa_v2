@@ -80,7 +80,7 @@ class UserController extends Controller
         $user = User::find($id);
         return view('notes.display-user', compact('user'));
         // Vérifiez si l'utilisateur est authentifié
-        /* if (Auth::check()) {
+        /*if (Auth::check()) {
             // Récupérez l'utilisateur actuellement authentifié
             $user = Auth::user();
             

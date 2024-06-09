@@ -6,6 +6,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\CommentaireController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\LoginController;
+use App\Http\Controllers\RegisterController;
 
 
 
@@ -52,11 +53,11 @@ Route::post('/notes/{id}/rate', 'NoteController@rate')->name('notes.rate');
 
 
 // Route pour afficher le formulaire d'inscription
-Route::get('/register', [UserController::class, 'showRegistrationForm'])->name('notes.register');
-Route::get('/redirect-test', [UserController::class, 'redirectTest']);
+//Route::get('/register', [UserController::class, 'showRegistrationForm'])->name('notes.register');
+//Route::get('/redirect-test', [UserController::class, 'redirectTest']);
 
 // Route pour traiter le formulaire d'inscription
-Route::post('/register', [UserController::class, 'register'])->name('notes.register');
+//Route::post('/register', [UserController::class, 'register'])->name('notes.register');
 // Afficher le formulaire de login
 //Route::get('/login', [LoginController::class, 'showLoginForm'])->name('notes.login');
 
@@ -84,3 +85,11 @@ Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
 
 // Route protégée qui redirige après la connexion
 Route::get('/profile/{id}', [LoginController::class, 'authenticated'])->name('notes.display-user');
+Route::get('/register', [RegisterController::class, 'showRegistrationForm'])->name('notes.register');
+Route::post('/register', [RegisterController::class, 'register']);
+Route::middleware('auth')->group(function () {
+    Route::get('/profile/{id}', [UserController::class, 'displayUser'])->name('profile');
+    Route::get('/profile/{id}', [ProfileController::class, 'edit'])->name('profile.edit');
+    Route::patch('/profile/{id}', [ProfileController::class, 'update'])->name('profile.update');
+    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+});

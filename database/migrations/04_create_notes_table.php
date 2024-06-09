@@ -25,6 +25,10 @@ return new class extends Migration
 
             // Define the foreign key constraint
             $table->foreign('topic_id')->references('id')->on('topics')->onDelete('cascade');
+            $table->unsignedBigInteger('ID_utilisateur')->nullable();
+
+            // Define foreign key constraint
+            $table->foreign('ID_utilisateur')->references('id')->on('users')->onDelete('cascade');
         });
     }
 
@@ -36,5 +40,9 @@ return new class extends Migration
     public function down()
     {
         Schema::dropIfExists('notes');
+        Schema::table('notes', function (Blueprint $table) {
+            $table->dropForeign(['ID_utilisateur']);
+            $table->dropColumn('ID_utilisateur');
+        });
     }
 };

@@ -15,6 +15,9 @@ class NoteController extends Controller
         $notes = Note::all();
         return view('notes.index', compact('notes'));
     }*/
+    public function __construct(){
+        $this->middleware('auth');
+    }
     public function addNote()
 {
     $disciplines = Discipline::all();

@@ -107,5 +107,9 @@ return [
     */
 
     'password_timeout' => 10800,
+    /*'redirects' => [
+        'login' => '/profile/{id}',
+        'logout' => '/login',
+    ],*/
 
 ];
