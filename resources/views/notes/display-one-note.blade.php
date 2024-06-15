@@ -139,8 +139,13 @@
         <div class="note-container">
             
              <div class="user-info">
-                <i class="fa-solid fa-user"></i>
-                <p class="user-name">user name</p>  
+                
+                @if ($note->user)
+    <p>Nom de l'utilisateur : {{ $note->user->first_name }} {{ $note->user->family_name }}</p>
+    @if ($note->user->photo_de_profil)
+        <img src="{{ asset('storage/' . $note->user->photo_de_profil) }}" alt="Photo de profil de {{ $note->user->first_name }}">
+    @endif
+@endif
                 <div>
                     <p class="note-published-at">Published at: {{ $note->created_at }}</p>
                 </div>
@@ -208,6 +213,14 @@
 </form>
 @foreach ($note->commentaires as $commentaire) 
 <div class ="comments">
+<div class="comment-header">
+            @if ($commentaire->utilisateur->photo_de_profil)
+                <img src="{{ asset('storage/' . $commentaire->utilisateur->photo_de_profil) }}" alt="Photo de profil de {{ $commentaire->utilisateur->name }}" class="profile-picture">
+            @else
+                <img src="{{ asset('storage/default-profile-picture.png') }}" alt="Photo de profil par défaut" class="profile-picture">
+            @endif
+            <span>{{ $commentaire->utilisateur->first_name }} {{ $commentaire->utilisateur->family_name }}</span>
+        </div>
     <small>{{ $commentaire->created_at }}</small>
     <p>{{ $commentaire->Contenu }}</p>
 

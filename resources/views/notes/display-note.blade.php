@@ -31,8 +31,12 @@
                     <div class="note-container">
                         
                          <div class="user-info">
-                            <i class="fa-solid fa-user"></i>
-                            <p class="user-name">user name</p>
+                         @if ($note->user)
+    <p>Nom de l'utilisateur : {{ $note->user->first_name }} {{ $note->user->family_name }}</p>
+    @if ($note->user->photo_de_profil)
+        <img src="{{ asset('storage/' . $note->user->photo_de_profil) }}" alt="Photo de profil de {{ $note->user->first_name }}">
+    @endif
+@endif
                             
                          </div>
                          

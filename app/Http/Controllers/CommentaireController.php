@@ -33,7 +33,8 @@ class CommentaireController extends Controller
 public function getComments(Note $note)
 {
     // Récupérer les commentaires pour la note spécifique
-    $comments = Commentaire::where('ID_note', $note->id)->get();
+    // Récupérer les commentaires pour la note spécifique avec les utilisateurs associés
+    $comments = Commentaire::where('ID_note', $note->id)->with('utilisateur')->get();
 
     // Retourner la vue avec les commentaires
     return view('comments', compact('comments'));
@@ -43,7 +44,7 @@ public function store(Request $request, $id){
     $commentaire->ID_note = $id;
     $commentaire->Contenu = $request->get('Contenu');
     $commentaire->Date = now();
-    $commentaire->ID_utilisateur = 1; // Remplacez 1 par l'ID de l'utilisateur qui a fait le commentaire
+    $commentaire->ID_utilisateur = auth()->user()->id; // Remplacez 1 par l'ID de l'utilisateur qui a fait le commentaire
     $commentaire->rating = 0; // Note par défaut
     $commentaire->save();
 

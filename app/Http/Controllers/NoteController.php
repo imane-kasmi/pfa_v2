@@ -8,6 +8,7 @@ use App\Models\Discipline;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
 use Storage;
+use Illuminate\Support\Facades\Auth;
 class NoteController extends Controller
 {
    /* public function index()
@@ -44,6 +45,8 @@ public function show($id)
 
 public function storeNote(Request $request)
 {
+    $ID_utilisateur = Auth::id();
+
     $id_discipline = $request->input('discipline_id');
     $topic = new Topic;
     $topic->name = $request->input('topic');
@@ -61,6 +64,7 @@ public function storeNote(Request $request)
         $note->photo = $photoPath;
     }
     // Sauvegarder la note
+    $note->ID_utilisateur = $ID_utilisateur;
     $note->save();  // Redirection ou réponse appropriée
     return redirect()->route('notes.display-note')->with('success', 'Note ajoutée avec succès');
 }

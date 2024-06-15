@@ -26,6 +26,7 @@ class ProfileUpdateRequest extends FormRequest
             'phone' => 'nullable|string|max:15',
             'university' => 'nullable|string|max:255',
             'profile_image' => 'nullable|image|mimes:jpeg,png,jpg,gif,avif|max:2048',
+            'study_field' => 'required|string|max:255',
         ];
     }
 }

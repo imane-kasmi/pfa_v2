@@ -16,21 +16,13 @@
                 <img src="{{ $user->photo_de_profil ? asset('storage/' . $user->photo_de_profil) : asset('images/notes/photodeprofile.png') }}" alt="Profile Image">
 
             </div>
-            <div id="upload-modal" class="modal">
-                <div class="modal-content">
-                    <span class="close" onclick="closeUploadWindow()">&times;</span>
-                    <h2>Upload Profile Picture</h2>
-                    <form method="POST" action="{{ route('profile.update', ['id' => $user->id]) }}" enctype="multipart/form-data">
-                        @csrf
-                        @method('PATCH')
-                        <input type="file" name="profile_image" accept="image/*" required>
-                        <button type="submit">Upload</button>
-                    </form>
-                </div>
-            </div>
+            
         </div>
         <div class="pencil-icon" onclick="toggleEditForm()">
             <img src="{{ asset('images/notes/icone_modification_profile.png') }}" alt="Edit Icon">
+            @if (Auth::check())
+                 <a href="{{ route('notes.display-note') }}">Voir les notes</a>
+           @endif
         </div>
         <div class="profile-infos">
             <div class="profile-name">
@@ -72,6 +64,11 @@
             <input type="text" name="phone" value="{{ $user->phone }}"><br>
             <label>Université:</label><br>
             <input type="text" name="university" value="{{ $user->university }}"><br>
+            <label>filiere:</label><br>
+            <input type="text" name="study_field" value="{{ $user->study_field }}"><br>
+            <input type="file" name="profile_image" accept="image/*" required>
+            
+       
             <button type="submit">Enregistrer les modifications</button>
         </form>
     </div>

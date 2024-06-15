@@ -27,26 +27,25 @@ class ProfileController extends Controller
      * Update the user's profile information.
      */
     public function update(ProfileUpdateRequest $request): RedirectResponse
-    {
-        $user = $request->user();
-        $user->fill($request->validated());
+{
+    $user = $request->user();
+    $user->fill($request->validated());
 
-        if ($request->hasFile('profile_image')) {
-            // Delete old profile image if it exists
-            if ($user->photo_de_profil) {
-                Storage::disk('public')->delete($user->profile_image);
-            }
-            // Store the new profile image
-            $path = $request->file('profile_image')->store('profile_images', 'public');
-            $user->photo_de_profil= $path;
+    if ($request->hasFile('profile_image')) {
+        // Supprimer l'ancienne image de profil si elle existe
+        if ($user->photo_de_profil) {
+            Storage::disk('public')->delete($user->photo_de_profil);
         }
-
-        
-
-        $user->save();
-
-        return Redirect::route('profile.edit', ['id' => $user->id])->with('status', 'profile-updated');
+        // Enregistrer la nouvelle image de profil
+        $path = $request->file('profile_image')->store('profile_images', 'public');
+        $user->photo_de_profil = $path;
     }
+
+    $user->save();
+
+    return Redirect::route('profile.edit', ['id' => $user->id])->with('status', 'profile-updated');
+}
+
 
     /**
      * Delete the user's account.
@@ -69,4 +68,3 @@ class ProfileController extends Controller
         return Redirect::to('/register');
     }
 }
-

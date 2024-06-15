@@ -19,9 +19,7 @@
     height:400px;
     width:1100px;
     }
-    .note-detailed .image-container .note-rating{
     
-    }
     .note-detailed .note-details .note-title{
     margin-top:4px;
     }
@@ -346,4 +344,3 @@
 .search-container button:hover {
     background-color: #E6738F;
 }
-

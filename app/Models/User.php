@@ -25,6 +25,10 @@ class User extends Authenticatable
     {
         $this->attributes['first_name'] = strtolower($value); // Example: Convert the first name to lowercase
     }
+    public function notes()
+    {
+        return $this->hasMany(Note::class, 'ID_utilisateur');
+    }
 
     // Similarly, define getters and setters for other attributes if needed
 }
