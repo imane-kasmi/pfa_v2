@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Note;
+use App\Models\User;
 use App\Models\Topic;
 use App\Models\Discipline;
 use Illuminate\Http\Request;
@@ -147,4 +148,12 @@ public function storeNote(Request $request)
 
         return redirect()->route('notes.index');
     }
+    public function displayUserNotes($userId)
+    {
+        $user = User::findOrFail($userId);
+        $note = Note::where('ID_utilisateur', $userId)->orderBy('published_at', 'desc')->get();
+        
+        return view('notes.user-profile', compact('user', 'notes'));
+    }
+    
 }

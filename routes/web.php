@@ -8,6 +8,8 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\RegisterController;
 
+use App\Http\Controllers\AdminController;
+
 
 
 
@@ -92,4 +94,15 @@ Route::middleware('auth')->group(function () {
     Route::get('/profile/{id}', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile/{id}', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+    Route::get('/user/{id}/profile', [UserController::class, 'showUserProfile'])->name('user.profile');
+    Route::get('/notes/user/{id}', [NoteController::class, 'displayUserNotes'])->name('notes.userNotes');
+});
+Route::middleware(['auth', 'admin'])->group(function () {
+    Route::get('/admin/unapproved-users', [AdminController::class, 'showUnapprovedUsers'])->name('admin.unapproved-users');
+    Route::post('/admin/approve-user/{id}', [AdminController::class, 'approveUser'])->name('admin.approve-user');
+    Route::delete('/admin/delete-user/{id}', [AdminController::class, 'deleteUser'])->name('admin.delete-user');
+
+    Route::get('/admin/unapproved-notes', [AdminController::class, 'showUnapprovedNotes'])->name('admin.unapproved-notes');
+    Route::post('/admin/approve-note/{id}', [AdminController::class, 'approveNote'])->name('admin.approve-note');
+    Route::delete('/admin/delete-note/{id}', [AdminController::class, 'deleteNote'])->name('admin.delete-note');
 });

@@ -195,11 +195,10 @@
             <p class="note-keywords">Keywords: {{ $note->keywords }}</p>
 
         </div>
-{{ $note->id}}
 
 
 
-    <p>Aucun commentaire pour le moment.</p>
+    
 
 <!-- Formulaire pour ajouter un commentaire -->
 <!-- Formulaire pour ajouter un commentaire -->

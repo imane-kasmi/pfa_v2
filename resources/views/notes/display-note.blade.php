@@ -32,7 +32,9 @@
                         
                          <div class="user-info">
                          @if ($note->user)
-    <p>Nom de l'utilisateur : {{ $note->user->first_name }} {{ $note->user->family_name }}</p>
+                         <a href="{{ route('user.profile', ['id' => $note->user->id]) }}">
+                                            {{ $note->user->first_name }} {{ $note->user->family_name }}
+                                        </a>
     @if ($note->user->photo_de_profil)
         <img src="{{ asset('storage/' . $note->user->photo_de_profil) }}" alt="Photo de profil de {{ $note->user->first_name }}">
     @endif

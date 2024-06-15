@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\User;
+use App\Models\Note;
 use App\Http\Requests\ProfileUpdateRequest;
 use Illuminate\Http\RedirectResponse;
 
@@ -134,5 +135,15 @@ class UserController extends Controller
 
         return Redirect::to('/');
     }
+    // UserController.php
+
+public function showUserProfile($id)
+{
+    $user = User::findOrFail($id);
+    $notes = Note::where('ID_utilisateur', $id)->orderBy('published_at', 'desc')->get();
+    
+    return view('notes.user-profile', compact('user', 'notes'));
+}
+
     
 }

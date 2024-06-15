@@ -1,14 +1,18 @@
 <?php
+// app/Models/User.php
+
 namespace App\Models;
 
+use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
-
+use Illuminate\Notifications\Notifiable;
 
 class User extends Authenticatable
 {
+    use Notifiable;
   
     protected $fillable = [
-        'first_name', 'family_name', 'email', 'password', 'university', 'study_field', 'study_level', 'photo_de_profil','phone'
+        'first_name', 'family_name', 'email', 'password', 'university', 'study_field', 'study_level', 'photo_de_profil','phone','is_admin'
     ];
 
     protected $hidden = [
@@ -25,7 +29,7 @@ class User extends Authenticatable
     {
         $this->attributes['first_name'] = strtolower($value); // Example: Convert the first name to lowercase
     }
-    public function notes()
+     public function notes()
     {
         return $this->hasMany(Note::class, 'ID_utilisateur');
     }
