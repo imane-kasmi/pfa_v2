@@ -12,7 +12,7 @@ class Note extends Model
     use HasFactory;
 
     protected $fillable = [
-        'title', 'topic_id', 'description', 'keywords', 'photo', 'published_at','ID_utilisateur'
+        'title', 'topic_id', 'description', 'keywords', 'photo', 'published_at','ID_utilisateur','is_approved'
     ];
 
     public function topic()
