@@ -14,6 +14,11 @@
             @csrf
             <div class="form-container">
                 <h2>Login</h2>
+                @if(session('message'))
+                <div class="alert alert-info">
+                    {{ session('message') }}
+                </div>
+            @endif
                 <div>
                     <label for="email">Email Address</label>
                     <input type="email" name="email" id="email" required>
@@ -35,7 +40,7 @@
                         <label for="remember">Remember Me</label>
                     </div>
                     {{-- {{ route(' password.request') }} --}}
-                    <a href="">Forgot Your Password?</a>
+                    <a href="{{ route('password.request') }}">Forgot Your Password?</a>
                 </div>
 
                 <div>

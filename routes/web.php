@@ -7,6 +7,8 @@ use App\Http\Controllers\CommentaireController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\RegisterController;
+use App\Http\Controllers\ForgotPasswordController;
+use App\Http\Controllers\ResetPasswordController;
 
 use App\Http\Controllers\AdminController;
 
@@ -98,11 +100,28 @@ Route::middleware('auth')->group(function () {
     Route::get('/notes/user/{id}', [NoteController::class, 'displayUserNotes'])->name('notes.userNotes');
 });
 Route::middleware(['auth', 'admin'])->group(function () {
-    Route::get('/admin/unapproved-users', [AdminController::class, 'showUnapprovedUsers'])->name('admin.unapproved-users');
-    Route::post('/admin/approve-user/{id}', [AdminController::class, 'approveUser'])->name('admin.approve-user');
+    Route::get('/admin/dashboard', [AdminController::class, 'dashboard'])->name('admin.dashboard');
+    Route::patch('/admin/approve-user/{id}', [AdminController::class, 'approveUser'])->name('admin.approve-user');
     Route::delete('/admin/delete-user/{id}', [AdminController::class, 'deleteUser'])->name('admin.delete-user');
-
-    Route::get('/admin/unapproved-notes', [AdminController::class, 'showUnapprovedNotes'])->name('admin.unapproved-notes');
-    Route::post('/admin/approve-note/{id}', [AdminController::class, 'approveNote'])->name('admin.approve-note');
+    Route::patch('/admin/approve-note/{id}', [AdminController::class, 'approveNote'])->name('admin.approve-note');
     Route::delete('/admin/delete-note/{id}', [AdminController::class, 'deleteNote'])->name('admin.delete-note');
+    Route::post('/admin/logout', [AdminController::class, 'logout'])->name('admin.logout');
 });
+
+// Apply middleware to protect routes
+Route::middleware(['auth', 'approved'])->group(function () {
+    Route::get('/profile/{id}', [UserController::class, 'displayUser'])->name('user.profile');
+    Route::get('/profile/{id}', [ProfileController::class, 'edit'])->name('profile.edit');
+    Route::patch('/profile/{id}', [ProfileController::class, 'update'])->name('profile.update');
+    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+    Route::get('/user/{id}/profile', [UserController::class, 'showUserProfile'])->name('user.profile');
+    Route::get('/notes/user/{id}', [NoteController::class, 'displayUserNotes'])->name('notes.userNotes');
+    Route::get('/notes/create', [NoteController::class, 'addNote'])->name('notes.add');
+});
+// Route pour afficher le formulaire de demande de réinitialisation de mot de passe
+Route::get('/password/reset', [ForgotPasswordController::class, 'showLinkRequestForm'])->name('password.request');
+// Route pour gérer l'envoi de l'email de réinitialisation de mot de passe
+Route::post('/password/email', [ForgotPasswordController::class, 'sendResetLinkEmail'])->name('password.email');
+// Routes pour réinitialiser le mot de passe
+Route::get('/reset-password/{token}', [ResetPasswordController::class, 'showResetForm'])->name('password.reset');
+Route::post('/reset-password', [ResetPasswordController::class, 'reset'])->name('password.update');

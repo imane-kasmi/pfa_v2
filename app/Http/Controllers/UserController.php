@@ -60,7 +60,7 @@ class UserController extends Controller
         $user->phone = $request->input('phone');
         //$user->pays = $request->input('pays');
         //$user->city = $request->input('city');
-
+        
         // Enregistrer l'utilisateur dans la base de données
         $user->save();
 
