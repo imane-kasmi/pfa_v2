@@ -104,6 +104,55 @@
             </div>
         </div>
     </div>
+    <div class="user-notes">
+        <h3>Notes partagées par {{ $user->first_name }} {{ $user->family_name }}</h3>
+        <div class="container">
+            <div class="content">
+                <div id="notes-container">
+                    @foreach($notes as $note)
+                        <a href="{{ route('notes.detail', ['id' => $note->id]) }}" class="note-link">
+                            <div class="note" data-topic="{{ $note->topic->name }}">
+                                <div class="note-container">
+                                    <div class="user-info">
+                                        @if ($note->user)
+                                            <p class="user-name">{{ $note->user->first_name }} {{ $note->user->family_name }}</p>
+                                        @endif
+                                    </div>
+                                    <div class="note-rating">
+                                        <i class="fa-regular fa-star" data-rating="1"></i>
+                                        <i class="fa-regular fa-star" data-rating="2"></i>
+                                        <i class="fa-regular fa-star" data-rating="3"></i>
+                                        <i class="fa-regular fa-star" data-rating="4"></i>
+                                        <i class="fa-regular fa-star" data-rating="5"></i>
+                                    </div>
+                                    <div class="note-actions">
+                                        <i class="fa-regular fa-floppy-disk"></i>
+                                        <i class="fa-solid fa-share"></i>
+                                        <i class="fa-solid fa-triangle-exclamation"></i>
+                                    </div>
+                                </div>
+                                <hr/>
+                                <div class="note-details">
+                                    <h3 class="note-title">{{ $note->title }}</h3>
+                                    <p class="note-topic-id">Topic: {{ $note->topic->name }}</p>
+                                    <div class="image-container">
+                                        @if ($note->photo)
+                                            <img src="{{ asset($note->photo) }}" alt="Photo de la note">
+                                        @endif
+                                    </div>
+                                    <div class="more-details">
+                                        <button class="see-more-button">
+                                            See More<i class="fas fa-arrow-right"></i>
+                                        </button> 
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
+                    @endforeach
+                </div>
+            </div>
+        </div>
+    </div>
     <script>
         function searchNotes() {
             const searchTerm = document.getElementById('search-input').value.toLowerCase();

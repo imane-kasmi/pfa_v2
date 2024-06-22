@@ -9,7 +9,7 @@ use App\Models\Discipline;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
-use App\Models\savedNotes;
+use App\Models\savedNote;
 
 
 class NoteController extends Controller
@@ -112,8 +112,9 @@ public function storeNote(Request $request)
     {
         $user = User::findOrFail($userId);
         $notes = Note::where('ID_utilisateur', $userId)->orderBy('published_at', 'desc')->get();
+        $savedNotes = SavedNote::where('user_id', $user->id)->with('note')->get();
         
-        return view('notes.display-user', compact('user', 'notes'));
+        return view('notes.display-user', compact('user', 'notes','savedNotes'));
     }
     //note_saved 
   /*  public function saveNote(Request $request, $id)

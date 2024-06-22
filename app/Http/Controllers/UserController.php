@@ -82,8 +82,9 @@ class UserController extends Controller
     {
         $user = User::find($id);
         $savedNotes = SavedNote::where('user_id', $user->id)->with('note')->get();
+        $notes = Note::where('ID_utilisateur', $id)->orderBy('published_at', 'desc')->get();
 
-        return view('notes.display-user',compact('user', 'savedNotes'));
+        return view('notes.display-user',compact('user', 'savedNotes','notes'));
      
     }
   
@@ -108,12 +109,10 @@ class UserController extends Controller
         if ($request->user()->isDirty('email')) {
             $request->user()->email_verified_at = null;
         }
-        
-        
 
         $request->user()->save();
 
-        return Redirect::route('notes.display-user')->with('status', 'profile-updated');
+        return Redirect::route('notes.display-user', ['id' => $request->user()->id])->with('status', 'profile-updated');
     }
 
     /**

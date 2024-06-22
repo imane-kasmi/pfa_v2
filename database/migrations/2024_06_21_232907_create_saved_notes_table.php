@@ -21,6 +21,8 @@ class CreateSavedNotesTable extends Migration
 
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->foreign('note_id')->references('id')->on('notes')->onDelete('cascade');
+            // Ajout de la contrainte d'unicité
+            $table->unique(['user_id', 'note_id']);
         });
     }
 

@@ -23,12 +23,21 @@ class SavedNoteController extends Controller
         $note = Note::find($id);
 
         if ($note) {
-            SavedNote::create([
-                'user_id' => $user->id,
-                'note_id' => $note->id
-            ]);
+            // Vérifier si la note est déjà sauvegardée par l'utilisateur
+            $existingSavedNote = SavedNote::where('user_id', $user->id)
+                                          ->where('note_id', $note->id)
+                                          ->first();
+                                          
+            if (!$existingSavedNote) {
+                SavedNote::create([
+                    'user_id' => $user->id,
+                    'note_id' => $note->id
+                ]);
 
-            return redirect()->back()->with('success', 'Note saved successfully!');
+                return redirect()->back()->with('success', 'Note saved successfully!');
+            }
+
+            return redirect()->back()->with('info', 'You have already saved this note!');
         }
 
         return redirect()->back()->with('error', 'Note not found!');
