@@ -9,6 +9,7 @@ use App\Http\Controllers\LoginController;
 use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\ForgotPasswordController;
 use App\Http\Controllers\ResetPasswordController;
+use App\Http\Controllers\RatingController;
 
 use App\Http\Controllers\AdminController;
 
@@ -92,12 +93,15 @@ Route::get('/profile/{id}', [LoginController::class, 'authenticated'])->name('no
 Route::get('/register', [RegisterController::class, 'showRegistrationForm'])->name('notes.register');
 Route::post('/register', [RegisterController::class, 'register']);
 Route::middleware('auth')->group(function () {
-    Route::get('/profile/{id}', [UserController::class, 'displayUser'])->name('profile');
+    Route::get('/profile/{id}', [UserController::class, 'displayUser'])->name('user.myprofile');
     Route::get('/profile/{id}', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile/{id}', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
     Route::get('/user/{id}/profile', [UserController::class, 'showUserProfile'])->name('user.profile');
-    Route::get('/notes/user/{id}', [NoteController::class, 'displayUserNotes'])->name('notes.userNotes');
+    
+    // routes/web.php
+    
+
 });
 Route::middleware(['auth', 'admin'])->group(function () {
     Route::get('/admin/dashboard', [AdminController::class, 'dashboard'])->name('admin.dashboard');
@@ -111,12 +115,21 @@ Route::middleware(['auth', 'admin'])->group(function () {
 // Apply middleware to protect routes
 Route::middleware(['auth', 'approved'])->group(function () {
     Route::get('/profile/{id}', [UserController::class, 'displayUser'])->name('user.profile');
-    Route::get('/profile/{id}', [ProfileController::class, 'edit'])->name('profile.edit');
-    Route::patch('/profile/{id}', [ProfileController::class, 'update'])->name('profile.update');
+  
+    // Afficher le formulaire de profil de l'utilisateur
+Route::get('/profile/{id}', [UserController::class, 'edit'])->name('profile.edit');
+
+// Mettre à jour les informations de profil de l'utilisateur
+Route::post('/profile/{id}', [UserController::class, 'update'])->name('profile.update');
+Route::get('/profile/{id}', [NoteController::class, 'displaySavedNotes'])->name('user.saved-notes');
+Route::post('/notes/{id}/save', [NoteController::class, 'saveNote'])->name('notes.save');
+
+    
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
     Route::get('/user/{id}/profile', [UserController::class, 'showUserProfile'])->name('user.profile');
-    Route::get('/notes/user/{id}', [NoteController::class, 'displayUserNotes'])->name('notes.userNotes');
+    Route::get('/profile/{id}', [NoteController::class, 'displayUserNotes'])->name('notes.userNotes');
     Route::get('/notes/create', [NoteController::class, 'addNote'])->name('notes.add');
+    Route::post('/notes/{id}/rate', [RatingController::class, 'store'])->name('notes.rate');
 });
 // Route pour afficher le formulaire de demande de réinitialisation de mot de passe
 Route::get('/password/reset', [ForgotPasswordController::class, 'showLinkRequestForm'])->name('password.request');

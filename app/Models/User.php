@@ -33,6 +33,10 @@ class User extends Authenticatable
     {
         return $this->hasMany(Note::class, 'ID_utilisateur');
     }
+    public function savedNotes()
+    {
+        return $this->belongsToMany(Note::class, 'saved_notes', 'user_id', 'note_id');
+    }
 
     // Similarly, define getters and setters for other attributes if needed
 }

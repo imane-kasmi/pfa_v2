@@ -7,16 +7,13 @@ use App\Models\User;
 use App\Models\Topic;
 use App\Models\Discipline;
 use Illuminate\Http\Request;
-use Carbon\Carbon;
-use Storage;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
+
+
 class NoteController extends Controller
 {
-   /* public function index()
-    {
-        $notes = Note::all();
-        return view('notes.index', compact('notes'));
-    }*/
+   
     public function __construct(){
         $this->middleware('auth');
     }
@@ -32,10 +29,7 @@ public function displayNotes()
 
     return view('notes.display-note', compact('notes'));
 }
-/*public function show(Note $note)
-{
-    return view('notes.display-one-note', compact('note'));
-}*/
+
 public function show($id)
 {
     $note = Note::findOrFail($id);
@@ -69,48 +63,6 @@ public function storeNote(Request $request)
     $note->save();  // Redirection ou réponse appropriée
     return redirect()->route('notes.display-note')->with('success', 'Note ajoutée avec succès');
 }
-
-
-
-    /*public function create()
-    {
-        $topics = Topic::all();
-
-        return view('notes.create', ['topics' => $topics]);
-    }*/
-
-   /* public function store(Request $request)
-    {
-        $request->validate([
-            'title' => 'required|string|max:255',
-            'topic_id' => 'required|integer',
-            'description' => 'required|string',
-            'keywords' => 'required|string',
-            'photo' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-            'published_at' => 'required|date',
-        ]);
-
-        $note = Note::create([
-            'title' => $request->title,
-            'topic_id' => $request->topic_id,
-            'description' => $request->description,
-            'keywords' => $request->keywords,
-            'photo' => $request->file('photo')->store('notes'),
-            'published_at' => $request->published_at,
-        ]);
-
-        return redirect()->route('notes.index');
-    }*/
-    /*public function display()
-{
-    $notes = Note::with('discipline')->get();
-    return response()->json(['notes' => $notes]);
-}*/
-
-    /*public function show(Note $note)
-    {
-        return view('notes.show', ['note' => $note]);
-    }*/
 
     public function edit(Note $note)
     {
@@ -151,9 +103,68 @@ public function storeNote(Request $request)
     public function displayUserNotes($userId)
     {
         $user = User::findOrFail($userId);
-        $note = Note::where('ID_utilisateur', $userId)->orderBy('published_at', 'desc')->get();
+        $notes = Note::where('ID_utilisateur', $userId)->orderBy('published_at', 'desc')->get();
         
-        return view('notes.user-profile', compact('user', 'notes'));
+        return view('notes.display-user', compact('user', 'notes'));
     }
+    public function displayMyNotes($userId)
+    {
+        $user = User::findOrFail($userId);
+        $notes = Note::where('ID_utilisateur', $userId)->orderBy('published_at', 'desc')->get();
+        
+        return view('notes.display-user', compact('user', 'notes'));
+    }
+    //note_saved 
+  /*  public function saveNote(Request $request, $id)
+{
+    $userId = Auth::id();
+
+    // Vérifier si la note est déjà sauvegardée
+    $existingSave = DB::table('saved_notes')->where('note_id', $id)->where('user_id', $userId)->first();
+
+    if ($existingSave) {
+        return redirect()->back()->with('message', 'Note déjà sauvegardée');
+    }
+
+    // Sauvegarder la note
+    DB::table('saved_notes')->insert([
+        'note_id' => $id,
+        'user_id' => $userId,
+        'created_at' => now(),
+        'updated_at' => now()
+    ]);
+
+    return redirect()->back()->with('message', 'Note sauvegardée avec succès');
+}
+
+public function displaySavedNotes($userId)
+{
+    $user = User::findOrFail($userId);
+    $savedNotes = DB::table('saved_notes')
+        ->join('notes', 'saved_notes.note_id', '=', 'notes.id')
+        ->where('saved_notes.user_id', $userId)
+        ->select('notes.*')
+        ->orderBy('saved_notes.created_at', 'desc')
+        ->get();
+
+        return view('user-profile', compact('user', 'notes', 'savedNotes'));
+}*/
+public function saveNote(Request $request, $id)
+{
+    $user = Auth::user();
+    $note = Note::findOrFail($id);
+
+    $user->savedNotes()->attach($note);
+
+    return redirect()->route('notes.display-note')->with('success', 'Note sauvegardée avec succès.');
+}
+public function displaySavedNotes()
+{
+    $user = Auth::user();
+    $savedNotes = $user->savedNotes()->with('topic', 'user')->get();
+
+    return view('notes.display-user', compact('savedNotes'));
+}
+
     
 }

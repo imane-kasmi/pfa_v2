@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use App\Models\User;
+use App\Models\Rating;
 
 class Note extends Model
 {
@@ -41,6 +42,21 @@ public function user()
     {
         return $this->belongsTo(User::class, 'ID_utilisateur', 'id');
     }
+    // app/Models/Note.php
+public function ratings()
+{
+    return $this->hasMany(Rating::class);
+}
+
+public function averageRating()
+{
+    return $this->ratings()->avg('rating');
+}
+public function savedByUsers()
+    {
+        return $this->belongsToMany(User::class, 'saved_notes', 'note_id', 'user_id');
+    }
+
 
     
 
