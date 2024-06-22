@@ -9,6 +9,7 @@ use App\Models\Discipline;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use App\Models\savedNotes;
 
 
 class NoteController extends Controller
@@ -105,7 +106,7 @@ public function storeNote(Request $request)
         $user = User::findOrFail($userId);
         $notes = Note::where('ID_utilisateur', $userId)->orderBy('published_at', 'desc')->get();
         
-        return view('notes.display-user', compact('user', 'notes'));
+        return view('notes.user-profile', compact('user', 'notes'));
     }
     public function displayMyNotes($userId)
     {
@@ -148,7 +149,7 @@ public function displaySavedNotes($userId)
         ->get();
 
         return view('user-profile', compact('user', 'notes', 'savedNotes'));
-}*/
+}
 public function saveNote(Request $request, $id)
 {
     $user = Auth::user();
@@ -164,7 +165,7 @@ public function displaySavedNotes()
     $savedNotes = $user->savedNotes()->with('topic', 'user')->get();
 
     return view('notes.display-user', compact('savedNotes'));
-}
+}*/
 
     
 }

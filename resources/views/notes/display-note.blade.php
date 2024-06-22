@@ -28,23 +28,20 @@
     <div class="container">
     <div class="content">
         <div id="notes-container">
-            @foreach($notes as $note)
-            @if($note->is_approved)
-            <a href="{{ route('notes.detail', ['id' => $note->id]) }}" class="note-link">
-                <div class="note" data-topic="{{ $note->topic->name }}">
-                    <div class="note-container">
-                        
-                         <div class="user-info">
-                            <div class="user-img">
-                                @if ($note->user->photo_de_profil)
-                                    <img  src="{{ asset('storage/' . $note->user->photo_de_profil) }}" alt="Photo de profil de {{ $note->user->first_name }}">
-                                @endif
-                            </div>
-                            @if ($note->user)
-                            <p class="user-name">{{ $note->user->first_name }} {{ $note->user->family_name }}</p>
+        @foreach($notes as $note)
+    <a href="{{ route('notes.detail', ['id' => $note->id]) }}" class="note-link">
+        <div class="note" data-topic="{{ $note->topic->name }}">
+            <div class="note-container">
+                <div class="user-info">
+                    @if ($note->user)
+                        <div class="user-img">
+                            @if ($note->user->photo_de_profil)
+                                <img src="{{ asset('storage/' . $note->user->photo_de_profil) }}" alt="Photo de profil de {{ $note->user->first_name }}">
                             @endif
-                         </div>
-                         
+                        </div>
+                        <p class="user-name">{{ $note->user->first_name }} {{ $note->user->family_name }}</p>
+                   @endif
+                </div>
                          <div class="note-rating">
                             <i class="fa-regular fa-star" data-rating="1"></i>
                             <i class="fa-regular fa-star" data-rating="2"></i>
@@ -85,7 +82,7 @@
                     
                 </div>
             </a>
-            @endif
+           
             @endforeach
         </div>
     </div>

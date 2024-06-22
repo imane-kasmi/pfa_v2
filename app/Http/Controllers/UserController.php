@@ -12,6 +12,7 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\View\View;
 use Illuminate\Support\Facades\DB;
+use App\Models\savedNote;
 
 class UserController extends Controller
 {
@@ -80,8 +81,9 @@ class UserController extends Controller
     public function displayUser($id)
     {
         $user = User::find($id);
-        dd($user);
-        return view('notes.display-user', compact('user'));
+        $savedNotes = SavedNote::where('user_id', $user->id)->with('note')->get();
+
+        return view('notes.display-user',compact('user', 'savedNotes'));
      
     }
   
@@ -90,8 +92,10 @@ class UserController extends Controller
     {
         $user = User::findOrFail($id);
         $notes = Note::where('ID_utilisateur', $id)->orderBy('published_at', 'desc')->get();
+        $savedNotes = SavedNote::where('user_id', $user->id)->with('note')->get();
         
-        return view('notes.display-user', compact('user', 'notes'));
+        
+        return view('notes.display-user', compact('user', 'notes','savedNotes'));
     }
 
     /**
@@ -104,6 +108,8 @@ class UserController extends Controller
         if ($request->user()->isDirty('email')) {
             $request->user()->email_verified_at = null;
         }
+        
+        
 
         $request->user()->save();
 
@@ -153,6 +159,17 @@ public function showUserProfile($id)
         ->get();
 
     return view('user-profile', compact('user', 'savedNotes'));*/
+    // UserController.php
+
+public function displaySavedNotes($id)
+{
+    $user = User::findOrFail($id);
+    
+    $savedNotes = SavedNote::where('user_id', $user->id)->with('note')->get();
+
+    return view('notes.display-user', compact('user', 'savedNotes'));
+}
+
 }
 
 

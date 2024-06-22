@@ -52,10 +52,10 @@ public function averageRating()
 {
     return $this->ratings()->avg('rating');
 }
-public function savedByUsers()
-    {
-        return $this->belongsToMany(User::class, 'saved_notes', 'note_id', 'user_id');
-    }
+public function savedNotes()
+{
+    return $this->hasMany(SavedNote::class);
+}
 
 
     
