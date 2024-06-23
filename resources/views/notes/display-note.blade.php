@@ -14,10 +14,19 @@
     <header id="header">
         <div class="logo"><img class="logo"src="{{ asset('images/notes/Design sans titre (56).png') }}"></div>
         <div class="icons">
-        <div class="user-icon" ><a href="{{ route('user.profile', ['id' => Auth::user()->id]) }}">
-                <i class="fas fa-user"></i>
-            </a></div>
-            <div><i class="fa-solid fa-right-from-bracket"></i></div>
+            <div class="user-icon">
+                <a href="{{ route('notes.display-user', ['id' => Auth::user()->id]) }}">
+                    <i class="fas fa-user"></i>
+                </a>
+            </div>
+            <div class="logout-icon">
+                <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                    @csrf
+                </form>
+                <a href="#" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                    <i class="fa-solid fa-right-from-bracket"></i>
+                </a>
+            </div>
         </div>
     </header>
     <div class="search-container">
@@ -74,6 +83,7 @@
                     </div>
                     
                     <div class="more-details">
+                    
                         <button class="see-more-button">
                             See More<i class="fas fa-arrow-right"></i>
                         </button> 

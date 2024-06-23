@@ -56,7 +56,10 @@ public function savedNotes()
 {
     return $this->hasMany(SavedNote::class);
 }
-
+public function likes()
+{
+    return $this->belongsToMany(User::class, 'note_likes');
+}
 
     
 

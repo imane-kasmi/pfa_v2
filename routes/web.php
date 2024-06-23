@@ -13,6 +13,7 @@ use App\Http\Controllers\RatingController;
 use App\Http\Controllers\SavedNoteController;
 
 
+
 use App\Http\Controllers\AdminController;
 
 
@@ -122,6 +123,7 @@ Route::middleware(['auth', 'approved'])->group(function () {
 Route::get('/profile/{id}/saved-notes', [UserController::class, 'displaySavedNotes'])->name('user.savedNotes');
     // Route pour sauvegarder une note
 Route::post('/notes/{id}/save', [SavedNoteController::class, 'save'])->name('notes.save');
+Route::post('/notes/{id}/like', [NoteController::class, 'like'])->name('notes.like');
 
     Route::delete('/saved-notes/{id}', [SavedNoteController::class, 'destroy'])->name('saved-notes.destroy');
     //jusque ca 
@@ -139,7 +141,7 @@ Route::get('/profile/{id}/edit', [NoteController::class, 'displayMyNotes'])->nam
 //Route::post('/notes/{id}/save', [NoteController::class, 'saveNote'])->name('notes.save');
 
     
-    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+   // Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
     Route::get('/user/{id}/profile', [UserController::class, 'showUserProfile'])->name('user.profile');
     Route::get('/notes/user/{id}', [NoteController::class, 'displayUserNotes'])->name('notes.userNotes');
     Route::get('/notes/create', [NoteController::class, 'addNote'])->name('notes.add');

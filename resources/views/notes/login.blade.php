@@ -14,11 +14,7 @@
             @csrf
             <div class="form-container">
                 <h2>Login</h2>
-                @if(session('message'))
-                <div class="alert alert-info">
-                    {{ session('message') }}
-                </div>
-            @endif
+                
                 <div>
                     <label for="email">Email Address</label>
                     <input type="email" name="email" id="email" required>
@@ -29,15 +25,9 @@
                     <input type="password" name="password" id="password" required>
                 </div>
                 
-                {{-- <div class="remember-container">
-                    <input type="checkbox" name="remember" id="remember"> <!-- Remember Me -->
-                    <label for="remember">Remember Me</label>
-                    <a href="{{ route('password.request') }}">Forgot Your Password?</a> <!-- Forgot Password Link -->
-                </div> --}}
                 <div class="remember-forgot-container">
                     <div class="remember-container">
-                        <input type="checkbox" name="remember" id="remember">
-                        <label for="remember">Remember Me</label>
+                       
                     </div>
                     {{-- {{ route(' password.request') }} --}}
                     <a href="{{ route('password.request') }}">Forgot Your Password?</a>
@@ -46,8 +36,26 @@
                 <div>
                     <button type="submit">Sign In</button>
                 </div>
+
+                <div class="register-link">
+                    <p>Not registered yet? <a href="{{ route('notes.register') }}">Register for free.</a></p>
+                </div>
             </div>
     </form>
+
+
+
+
+
+
+    <div class="message">
+        @if(session('message'))
+                <div class="alert alert-info">
+                    {{ session('message') }}
+                </div>
+            @endif
+    </div>
+    
         @if ($errors->any())
             <div>
                 <ul>

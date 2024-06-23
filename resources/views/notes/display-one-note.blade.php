@@ -28,17 +28,11 @@
             </div>
              
             <div class="note-rating">
-                <i class="fa-regular fa-star" data-rating="1"></i>
-                <i class="fa-regular fa-star" data-rating="2"></i>
-                <i class="fa-regular fa-star" data-rating="3"></i>
-                <i class="fa-regular fa-star" data-rating="4"></i>
-                <i class="fa-regular fa-star" data-rating="5"></i>
+               
             </div>
 
             <div class="note-actions">
                 <i class="fa-regular fa-floppy-disk"></i>
-                <i class="fa-solid fa-share"></i>
-                <i class="fa-solid fa-triangle-exclamation"></i>
             </div>
 
         </div>
@@ -73,7 +67,7 @@
 
         <div class="note-buttons">
 
-            <button class="like-note-button"><i class="fa-regular fa-heart"></i> Like</button>
+            <button class="like-note-button"><i class="fa-regular fa-heart"></i> Like<span id="like-count">{{ $note->likes_count }}</span></button>
             <button class="comment-button" id="comment-button" name="comment-button"><i class="fa-regular fa-comment"></i> Comment</button>  
         
         </div>
@@ -158,6 +152,32 @@
                 } else {
                     $('#publish-button').hide();
                 }
+            });
+        });
+
+        $(document).ready(function() {
+            $('.like-note-button').click(function() {
+                var noteId = $(this).data('note-id');
+                var likeButton = $(this);
+                $.ajax({
+                    url: "{{ route('notes.like', ['id' => $note->id]) }}",
+                    method: 'POST',
+                    data: {
+                        _token: '{{ csrf_token() }}',
+                        note_id: noteId
+                    },
+                    success: function(response) {
+                        if (response.success) {
+                            var likeCount = $('#like-count');
+                            likeCount.text(response.likes_count);
+                            if (response.liked) {
+                                likeButton.find('i').removeClass('fa-regular').addClass('fa-solid');
+                            } else {
+                                likeButton.find('i').removeClass('fa-solid').addClass('fa-regular');
+                            }
+                        }
+                    }
+                });
             });
         });
     </script>
